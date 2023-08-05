@@ -200,14 +200,14 @@ export const Body = () => {
         // setLatestMessageContent((prevMessages) => [...prevMessages, message.content]);
         console.log("latest message content", message.content);
         console.log("latest message", latestMessageContent);
-        
+        setstreamComplete(true)
       }
        
     }
     
     await setAudioText()
    
-    setstreamComplete(true)
+
   }})
 
 
@@ -240,11 +240,8 @@ export const Body = () => {
     //   return // Don't submit empty messages
     // }
     try {      
-      
-     
-        setstreamComplete(false)
-       await handleSubmit(event)
-  
+      setstreamComplete(false)
+      await handleSubmit(event)
 
     }
     catch(e){
@@ -307,7 +304,7 @@ export const Body = () => {
    
 
   console.log("latestMessage hook" , latestMessageContent);
- 
+  console.log("latestMessageContent[latestMessageContent.length - 1]" , latestMessageContent[latestMessageContent.length - 1]); 
   return (
     <div>
       <Box sx={{ px: 2, py: 2 }}>
@@ -426,7 +423,7 @@ export const Body = () => {
 
                       
 
- {m.content && streamComplete && (
+                        {m.content && streamComplete && (
   <>
 
   <AudioPlayer
