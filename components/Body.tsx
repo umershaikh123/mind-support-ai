@@ -235,25 +235,7 @@ export const Body = () => {
       }
     }
 
-    // const userMessage: UserMessage = {
-    //   role: "user",
-    //   id: String(Date.now()), // You can use a better method to generate IDs
-    //   content: promptValue.trim(),
-    // }
-
-    // const assistantMessage: AssistantMessage = {
-    //   role: "assistant",
-    //   id: String(Date.now()), // You can use a better method to generate IDs
-    //   usercontent: promptValue.trim(), // Replace 'url' with the actual audio URL generated for the user's prompt
-
-    // }
-
-    // setc_Messages(prevMessages => [
-    //   ...prevMessages,
-    //   userMessage,
-    //   assistantMessage,
-    // ])
-    // setPromptValue("")
+ 
   };
 
   const handleKeyDown = async (event: any) => {
@@ -263,12 +245,9 @@ export const Body = () => {
   };
 
   useEffect(() => {
-    // Scroll to the bottom of the chat window when new messages arrive
-    // This assumes you have a ref to the chat container element
-    // Replace "chatContainerRef" with your actual ref
+ 
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
 
@@ -320,12 +299,7 @@ export const Body = () => {
                     className=" justify-start bg-[#1A0B11]  w-full "
                     ref={ref}
                   >
-                    {/* 
-                {isLoading && (<>
-                  <div>
-        <BeatLoader color="#ffffff" size={10} loading={isLoading} className="ml-5" />
-      </div>
-                </>) } */}
+    
 
                     {m.role === "user" ? (
                       <div className="  ">
@@ -383,7 +357,7 @@ export const Body = () => {
                             </div>
                             <div className="mt-4">
                               {streamComplete && m.content == latestMessageContent && (
-                                <>
+                                <div  >
                                   <AudioPlayer
                                     text={latestMessageContent}
                                     model_id={props.model_id}
@@ -391,30 +365,10 @@ export const Body = () => {
                                     stability={props.stability}
                                     similarity_boost={props.similarity_boost}
                                   />
-                                </>
+                                </div>
                               )}
-
-                              {/* {latestMessageContent === m.content && (
-                        <AudioPlayer
-                          text={latestMessageContent}
-                          model_id={props.model_id}
-                          Accent={props.Accent}
-                          stability={props.stability}
-                          similarity_boost={props.similarity_boost}
-                          /> 
-                        )} */}
-                              {/* {streamComplete &&                          
-                        (<>
-
-
-                        <AudioPlayer
-                          text={m.content}
-                          model_id={props.model_id}
-                          Accent={props.Accent}
-                          stability={props.stability}
-                          similarity_boost={props.similarity_boost}
-                        /> 
-                        </>)   } */}
+ 
+ 
                             </div>
                           </div>
                         </Stack>
