@@ -1,42 +1,28 @@
-# Vercel AI SDK, Next.js, and OpenAI Chat Example
+# MindSupportAI - Therapy AI Chatbot
 
-This example shows how to use the [Vercel AI SDK](https://sdk.vercel.ai/docs) with [Next.js](https://nextjs.org/) and [OpenAI](https://openai.com) to create a ChatGPT-like AI-powered streaming chat bot.
+ 
+MindSupportAI is an AI-powered therapy chatbot designed to provide mental health support and guidance to users. It aims to create a safe and empathetic space for individuals to express their feelings and receive helpful coping strategies. Please note that this chatbot is not a replacement for professional therapy, but rather a supplementary tool for mental health awareness and self-help.
 
-## Deploy your own
+ ![image](https://github.com/umershaikh123/mind-support-ai/assets/42178214/a3207591-46a0-44d9-807c-bada26f9d983)
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=ai-sdk-example):
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fai%2Ftree%2Fmain%2Fexamples%2Fnext-openai&env=OPENAI_API_KEY&envDescription=OpenAI%20API%20Key&envLink=https%3A%2F%2Fplatform.openai.com%2Faccount%2Fapi-keys&project-name=vercel-ai-chat-openai&repository-name=vercel-ai-chat-openai)
+## Features
 
-## How to use
+- **Emotional Analysis:** MindSupportAI uses Natural Language Processing (NLP) and sentiment analysis to understand users' emotions and respond accordingly with empathy.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+- **Personalized Support:** The chatbot offers tailored responses based on users' input and provides coping mechanisms for specific mental health concerns.
 
-```bash
-npx create-next-app --example https://github.com/vercel-labs/ai/tree/main/examples/next-openai next-openai-app
-```
+- **Resource Library:** MindSupportAI provides links to helpful articles, videos, and websites related to mental health and self-care.
 
-```bash
-yarn create next-app --example https://github.com/vercel-labs/ai/tree/main/examples/next-openai next-openai-app
-```
+- **User Privacy:** We value user privacy and ensure that all interactions with the chatbot are confidential and anonymous.
 
-```bash
-pnpm create next-app --example https://github.com/vercel-labs/ai/tree/main/examples/next-openai next-openai-app
-```
+- **Continuous Improvement:** We are committed to regularly updating and improving the chatbot based on user feedback and advancements in the field of mental health.
 
-To run the example locally you need to:
+## How to Run locally
 
-1. Sign up at [OpenAI's Developer Platform](https://platform.openai.com/signup).
-2. Go to [OpenAI's dashboard](https://platform.openai.com/account/api-keys) and create an API KEY.
-3. Set the required OpenAI environment variable as the token value as shown [the example env file](./.env.local.example) but in a new file called `.env.local`
-4. `pnpm install` to install the required dependencies.
-5. `pnpm dev` to launch the development server.
-
-## Learn More
-
-To learn more about OpenAI, Next.js, and the Vercel AI SDK take a look at the following resources:
-
-- [Vercel AI SDK docs](https://sdk.vercel.ai/docs)
-- [Vercel AI Playground](https://play.vercel.ai)
-- [OpenAI Documentation](https://platform.openai.com/docs) - learn about OpenAI features and API.
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- Set open Ai api key
+- set Eleven labs api key
+- npm install
+- npm run dev
+ 
+ 
