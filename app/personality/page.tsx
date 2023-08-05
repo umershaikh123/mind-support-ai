@@ -42,7 +42,7 @@ import { callElevenLabsTextToSpeechAPI } from "@/utils/SpeechApi";
 import AudioPlayer from "../../components/Audio";
 import anime from "animejs";
 import { useApiContext } from "@/hooks/ApiContext";
-import {PersonalityTest} from "@/components/PersonalityTest";
+// import {PersonalityTest} from "@/components/PersonalityTest";
 
 
 export function ContinuousSlider() {
