@@ -34,7 +34,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         {/* <div className=" container mx-auto mt-5"> */}
-        <Container maxWidth="lg">
+        <Container className="flex-shrink" maxWidth="lg">
           <ApiProvider>{children}</ApiProvider>
           </Container>
         {/* </div> */}
