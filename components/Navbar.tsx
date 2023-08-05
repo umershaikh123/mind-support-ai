@@ -94,7 +94,8 @@ export const Navbar = () => {
                 MindSupportAi
               </Typography>
 
-              {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            {/* Moble Nav */}
+              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -149,7 +150,7 @@ export const Navbar = () => {
                     </MenuItem>
                   ))}
                 </Menu>
-              </Box> */}
+              </Box>
 
               <Avatar
                 alt="profile"
@@ -193,6 +194,8 @@ export const Navbar = () => {
                           my: 2,
                           px: 3,
                           ml: 3,
+                          textTransform: "capitalize",
+                          fontSize: "14px",
                           display: "block",
                         }}
                       >

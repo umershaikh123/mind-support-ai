@@ -24,7 +24,7 @@ import { Settings } from "@/components/Settings"
 import { LoadingScreen } from "@/components/Loading"
 import anime from "animejs"
 import { Navbar } from "@/components/Navbar"
-import { kv } from '@vercel/kv'
+// import { kv } from '@vercel/kv'
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat()
@@ -43,19 +43,19 @@ export default function Chat() {
     })
   }, [isLoading])
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3400) // Adjust the duration as needed
-  }, [])
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsLoading(false)
+  //   }, 3400) // Adjust the duration as needed
+  // }, [])
 
-  if (isLoading) {
-    return <LoadingScreen />
-  }
+  // if (isLoading) {
+  //   return <LoadingScreen />
+  // }
 
   return (
     <div className="" ref={Ref}>
-      <Navbar />
+      
       <ThemeProvider theme={theme}>
         <Stack
           direction="row"
@@ -94,6 +94,7 @@ export default function Chat() {
                 whiteSpace: "nowrap",
               }}
             >
+            
               <Body />
             </Typography>
             {/* {children} */}
