@@ -58,7 +58,7 @@ const MenuProps = {
 export function BasicSelect() {
   const { Accent, setAccent } = useApiContext()
 
-  console.log(Accent)
+  // console.log(Accent)
 
   const handleChange = (event: SelectChangeEvent) => {
     setAccent(event.target.value as string)
@@ -210,9 +210,9 @@ export const Settings = () => {
     setSimilarity_boost,
   } = useApiContext()
 
-  console.log(model_id)
-  console.log(stability)
-  console.log(similarity_boost)
+  // console.log(model_id)
+  // console.log(stability)
+  // console.log(similarity_boost)
 
   const [open2, setOpen2] = React.useState(false)
   const handleOpen2 = () => setOpen2(true)

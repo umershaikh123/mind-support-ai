@@ -30,7 +30,7 @@ import CustomizedAccordions from "./Accordion"
 import InputAdornment from "@mui/material/InputAdornment"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import { styled } from "@mui/material/styles"
- 
+import { RingLoader, BeatLoader } from "react-spinners"
 import VolumeDown from "@mui/icons-material/VolumeDown"
 import VolumeUp from "@mui/icons-material/VolumeUp"
 import PlayCircleIcon from "@mui/icons-material/PlayCircle"
@@ -48,6 +48,7 @@ import {
   useSimilarityBoost,
 } from "@/hooks"
 import { log } from "console"
+import { text } from "stream/consumers"
 
 const mainPrimary = theme.palette.primary.main
 const darkGreen = theme.palette.border.main
@@ -183,17 +184,37 @@ export const Body = () => {
     Accent,
   } = useApiContext()
   const [streamComplete, setstreamComplete] = React.useState(false)
-  const { messages, input, handleInputChange, handleSubmit, setMessages } = useChat({onFinish: () => {
-    setstreamComplete(true);
- 
-  }})
   const [lastMessage, setLastMessage] = React.useState<vercelMessage | null>(null);
   // Custom hook to handle audio rendering
  
   // const [c_messages, setc_Messages] = React.useState<Message[]>([])
-  
+  const [latestMessageContent, setLatestMessageContent] = useState('');
+  // const [latestMessageContent, setLatestMessageContent] = React.useState<any>([]);
+  const { messages, input, handleInputChange, handleSubmit, setMessages , isLoading} = useChat(   {onFinish:  async (message:any) => {
+   
+
+    async function setAudioText() {
+      console.log("messages", message)
+      if (message.role ==="assistant") {       
+        setLatestMessageContent( message.content);
+        // setLatestMessageContent((prevMessages) => [...prevMessages, message.content]);
+        console.log("latest message content", message.content);
+        console.log("latest message", latestMessageContent);
+        
+      }
+       
+    }
+    
+    await setAudioText()
+   
+    setstreamComplete(true)
+  }})
+
 
   const ref = useRef<HTMLDivElement | null>(null)
+  const chatContainerRef = useRef<HTMLDivElement | null>(null)
+  
+
 
   useEffect(() => {
     const Reveal = ref.current
@@ -218,13 +239,13 @@ export const Body = () => {
     // if (promptValue.trim() === "") {
     //   return // Don't submit empty messages
     // }
-    try {
-      setstreamComplete(false)
-      await handleSubmit(event)
-      setMessages(messages)
-      setLastMessage(messages[messages.length - 1]);
-      console.log("last message", lastMessage)
-      console.log("message lenght", messages.length - 1)
+    try {      
+      
+     
+        setstreamComplete(false)
+       await handleSubmit(event)
+  
+
     }
     catch(e){
       if(e){
@@ -266,6 +287,16 @@ export const Body = () => {
     }
   }
 
+  useEffect(() => {
+    // Scroll to the bottom of the chat window when new messages arrive
+    // This assumes you have a ref to the chat container element
+    // Replace "chatContainerRef" with your actual ref
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+
   const props: ApiProps = {
     text: "promptValue",
     model_id: model_id,
@@ -274,6 +305,9 @@ export const Body = () => {
     similarity_boost: similarity_boost,
   }
    
+
+  console.log("latestMessage hook" , latestMessageContent);
+ 
   return (
     <div>
       <Box sx={{ px: 2, py: 2 }}>
@@ -312,6 +346,12 @@ export const Body = () => {
                 className=" justify-start bg-[#1A0B11]  w-full "
                 ref={ref}
               >
+{/* 
+                {isLoading && (<>
+                  <div>
+        <BeatLoader color="#ffffff" size={10} loading={isLoading} className="ml-5" />
+      </div>
+                </>) } */}
 
 
                 {m.role === "user" ? (
@@ -334,16 +374,16 @@ export const Body = () => {
                       <div className=" w-full leading-relaxed text-sm   font-semibold ">
                         <p className=" ml-8">
 
-                        {m ? (<>
                           {m.content}
+                        {/* {m ? (<>
                         </>) : (  
                           <>
-        <Alert severity="error">
-        <AlertTitle>Error</AlertTitle>
-        Open Api key not Set 
-          </Alert>
-                          </>
-                        )}
+                      <Alert severity="error">
+                      <AlertTitle>Error</AlertTitle>
+                      Open Api key not Set 
+                        </Alert>
+                        </>
+                        )} */}
  
                           
                           
@@ -376,61 +416,65 @@ export const Body = () => {
 
                       <div className=" w-full   leading-relaxed text-sm  font-medium">
 
-                        <div className= " ml-8  text-white whitespace-normal">
+                        <div className= " ml-8  text-white whitespace-normal"  ref={chatContainerRef}>
 
                          {m.content}
 
                         </div>
                         <div className="mt-4">
 
-                        {streamComplete &&  
+
+                      
+
+ {m.content && streamComplete && (
+  <>
+
+  <AudioPlayer
+  text={latestMessageContent}
+  model_id={props.model_id}
+  Accent={props.Accent}
+  stability={props.stability}
+  similarity_boost={props.similarity_boost}
+  /> 
+</>
+ ) }
+                 
+
+
+                        
                         
 
-
+                       
+                        {/* {latestMessageContent === m.content && (
+                        <AudioPlayer
+                          text={latestMessageContent}
+                          model_id={props.model_id}
+                          Accent={props.Accent}
+                          stability={props.stability}
+                          similarity_boost={props.similarity_boost}
+                          /> 
+                        )} */}
+                        {/* {streamComplete &&                          
                         (<>
 
-{/*                         
-                     {loading ? (
-                      <>
-                      Loading audio
-                      </>
-                    ) 
-                    : (<>
-                          
-                    </>) 
-                    
-                    } */}
-   <AudioPlayer
+
+                        <AudioPlayer
                           text={m.content}
                           model_id={props.model_id}
                           Accent={props.Accent}
                           stability={props.stability}
                           similarity_boost={props.similarity_boost}
                         /> 
-                        </>)  
-                        
-                        }
+                        </>)   } */}
                         
                         
-                        {/* // : (  
-                        //   <>
-                        //    ...
-                        //   </>
-                        // )} */}
+                       
  
                         </div>
                       </div>
                     </Stack>
 
-                    {/* {loading ? (
-                      <>
-                      
-                      </>
-                    ) : (
-                      <div className="  whitespace-pre-wrap " ref={ref}>
-                        {/* <CustomizedAccordions />  
-                      </div>
-                    )} */}
+    
 
 
                   </div>
@@ -467,8 +511,7 @@ export const Body = () => {
                 fullWidth
                 id="fullWidth"
                 multiline
-                // value={promptValue}
-                // onChange={handlePromptChange}
+ 
                 value={input} 
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
