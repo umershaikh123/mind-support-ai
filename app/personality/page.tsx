@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import SendIcon from "@mui/icons-material/Send";
 import {
@@ -26,7 +27,7 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import { useCompletion, useChat } from "ai/react";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
-import CustomizedAccordions from "./Accordion";
+import CustomizedAccordions from "../../components/Accordion";
 import InputAdornment from "@mui/material/InputAdornment";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { styled } from "@mui/material/styles";
@@ -38,72 +39,10 @@ import PauseCircleIcon from "@mui/icons-material/PauseCircle";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import { callElevenLabsTextToSpeechAPI } from "@/utils/SpeechApi";
-import AudioPlayer from "./Audio";
+import AudioPlayer from "../../components/Audio";
 import anime from "animejs";
-import { useApiContext, ApiProvider } from "@/hooks/ApiContext";
-import {
-  useModelId,
-  useAccent,
-  useStability,
-  useSimilarityBoost,
-} from "@/hooks";
-import { log } from "console";
-import { text } from "stream/consumers";
-import { kv } from "@vercel/kv";
-
-const mainPrimary = theme.palette.primary.main;
-const darkGreen = theme.palette.border.main;
-
-const CssTextField = styled(TextField)({
-  transition: "all 0.3s ease-in-out",
-  backgroundColor: theme.palette.secondary.main,
-
-  "& label": { color: theme.palette.border.main },
-  "& helperText": { color: theme.palette.primary.main },
-  "& .MuiInputBase-input": {
-    color: theme.palette.primary.main,
-    height: "3rem",
-  },
-
-  "& label.Mui-focused": {
-    transition: "all 0.3s ease-in-out",
-    color: mainPrimary,
-  },
-  "& .MuiInput-underline:after": {
-    transition: "all 0.3s ease-in-out",
-    borderBottomColor: mainPrimary,
-  },
-
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      transition: "all 0.3s ease-in-out",
-      borderColor: mainPrimary,
-    },
-    "&:hover fieldset": {
-      transition: "all 0.3s ease-in-out",
-      borderColor: darkGreen,
-    },
-    "&.Mui-focused fieldset": {
-      transition: "all 0.3s ease-in-out",
-      borderColor: darkGreen,
-    },
-  },
-});
-
-interface ApiProps {
-  text: string;
-  model_id: string;
-  Accent: string;
-  stability: number;
-  similarity_boost: number;
-}
-
-interface vercelMessage {
-  id: string;
-  role: "function" | "user" | "assistant" | "system";
-  content: string;
-}
-const Messages: vercelMessage[] = [];
+import { useApiContext } from "@/hooks/ApiContext";
+import {PersonalityTest} from "@/components/PersonalityTest";
 
 
 export function ContinuousSlider() {
@@ -148,16 +87,17 @@ export function ContinuousSlider() {
 }
 
 
-
-export const Body = () => {
+function page({}: Props) {
+  const [streamComplete, setstreamComplete] = React.useState(false);
+  const [latestMessageContent, setLatestMessageContent] = useState("");
+  const ref = useRef<HTMLDivElement | null>(null);
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
   const {
     model_id,
     stability,
     similarity_boost,
     Accent,
   } = useApiContext();
-  const [streamComplete, setstreamComplete] = React.useState(false);
-  const [latestMessageContent, setLatestMessageContent] = useState("");
   const {
     messages,
     input,
@@ -169,38 +109,38 @@ export const Body = () => {
         console.log("messages", message);
         if (message.role === "assistant") {
           setLatestMessageContent(message.content);
-          // setLatestMessageContent((prevMessages) => [...prevMessages, message.content]);
-          console.log("latest message content", message.content);
-          console.log("latest message", latestMessageContent);
         }
       }
 
       await setAudioText();
-
       setstreamComplete(true);
     },
-    
-    // onResponse: async (message: any) => {
-    //   async function saveKV() {
-    //       try {
-    //           const value = await kv.get("messages");
-    //           if (value) {
-    //               const messages = JSON.parse(value);
-    //               messages.push(message);
-    //               await kv.set("messages", JSON.stringify(messages));
-    //           } else {
-    //             await kv.set("messages", JSON.stringify(message));
-    //       }
-    //   }catch(err) {
-    //       console.log(err);
-    //   }
-    //   }
-    //   await saveKV();
-    // },
+    api: 'personality',
   });
 
-  const ref = useRef<HTMLDivElement | null>(null);
-  const chatContainerRef = useRef<HTMLDivElement | null>(null);
+  const c_handleSubmit = async (event: any) => {
+    event.preventDefault();
+    try {
+      setstreamComplete(false);
+      await handleSubmit(event);
+    } catch (e) {
+      if (e) {
+        return (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            Open Api key not Set
+          </Alert>
+        );
+      }
+    }
+  };
+
+  const handleKeyDown = async (event: any) => {
+    if (event.key === "Enter") {
+      c_handleSubmit(event);
+    }
+  };
+
 
   useEffect(() => {
     const Reveal = ref.current;
@@ -215,56 +155,7 @@ export const Body = () => {
     }
   }, []);
 
-  const c_handleSubmit = async (event: any) => {
-    event.preventDefault();
-    // if (promptValue.trim() === "") {
-    //   return // Don't submit empty messages
-    // }
-    try {
-      setstreamComplete(false);
-      await handleSubmit(event);
-    } catch (e) {
-      if (e) {
-        return (
-          <Alert severity="error">
-            <AlertTitle>Error</AlertTitle>
-            Open Api key not Set
-          </Alert>
-        );
-      }
-    }
-
-    // const userMessage: UserMessage = {
-    //   role: "user",
-    //   id: String(Date.now()), // You can use a better method to generate IDs
-    //   content: promptValue.trim(),
-    // }
-
-    // const assistantMessage: AssistantMessage = {
-    //   role: "assistant",
-    //   id: String(Date.now()), // You can use a better method to generate IDs
-    //   usercontent: promptValue.trim(), // Replace 'url' with the actual audio URL generated for the user's prompt
-
-    // }
-
-    // setc_Messages(prevMessages => [
-    //   ...prevMessages,
-    //   userMessage,
-    //   assistantMessage,
-    // ])
-    // setPromptValue("")
-  };
-
-  const handleKeyDown = async (event: any) => {
-    if (event.key === "Enter") {
-      c_handleSubmit(event);
-    }
-  };
-
   useEffect(() => {
-    // Scroll to the bottom of the chat window when new messages arrive
-    // This assumes you have a ref to the chat container element
-    // Replace "chatContainerRef" with your actual ref
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
@@ -278,9 +169,6 @@ export const Body = () => {
     stability: stability,
     similarity_boost: similarity_boost,
   };
-
-  console.log("latestMessage hook", latestMessageContent);
-
   return (
     <div>
       <Box sx={{ px: 2, py: 2 }}>
@@ -319,13 +207,6 @@ export const Body = () => {
                     className=" justify-start bg-[#1A0B11]  w-full "
                     ref={ref}
                   >
-                    {/* 
-                {isLoading && (<>
-                  <div>
-        <BeatLoader color="#ffffff" size={10} loading={isLoading} className="ml-5" />
-      </div>
-                </>) } */}
-
                     {m.role === "user" ? (
                       <div className="  ">
                         <Stack
@@ -346,15 +227,7 @@ export const Body = () => {
                           <div className="w-full leading-relaxed text-sm font-semibold max-w-fit overflow-auto">
                             <p className="ml-8">
                               {m.content}
-                              {/* {m ? (<>
-                        </>) : (  
-                          <>
-                      <Alert severity="error">
-                      <AlertTitle>Error</AlertTitle>
-                      Open Api key not Set 
-                        </Alert>
-                        </>
-                        )} */}
+                             
                             </p>
                           </div>
                         </Stack>
@@ -401,27 +274,7 @@ export const Body = () => {
                                 </>
                               )}
 
-                              {/* {latestMessageContent === m.content && (
-                        <AudioPlayer
-                          text={latestMessageContent}
-                          model_id={props.model_id}
-                          Accent={props.Accent}
-                          stability={props.stability}
-                          similarity_boost={props.similarity_boost}
-                          /> 
-                        )} */}
-                              {/* {streamComplete &&                          
-                        (<>
-
-
-                        <AudioPlayer
-                          text={m.content}
-                          model_id={props.model_id}
-                          Accent={props.Accent}
-                          stability={props.stability}
-                          similarity_boost={props.similarity_boost}
-                        /> 
-                        </>)   } */}
+                          
                             </div>
                           </div>
                         </Stack>
@@ -479,5 +332,64 @@ export const Body = () => {
         </Stack>
       </Box>
     </div>
-  );
-};
+  )
+  
+}
+
+
+const mainPrimary = theme.palette.primary.main;
+const darkGreen = theme.palette.border.main;
+
+const CssTextField = styled(TextField)({
+  transition: "all 0.3s ease-in-out",
+  backgroundColor: theme.palette.secondary.main,
+
+  "& label": { color: theme.palette.border.main },
+  "& helperText": { color: theme.palette.primary.main },
+  "& .MuiInputBase-input": {
+    color: theme.palette.primary.main,
+    height: "3rem",
+  },
+
+  "& label.Mui-focused": {
+    transition: "all 0.3s ease-in-out",
+    color: mainPrimary,
+  },
+  "& .MuiInput-underline:after": {
+    transition: "all 0.3s ease-in-out",
+    borderBottomColor: mainPrimary,
+  },
+
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      transition: "all 0.3s ease-in-out",
+      borderColor: mainPrimary,
+    },
+    "&:hover fieldset": {
+      transition: "all 0.3s ease-in-out",
+      borderColor: darkGreen,
+    },
+    "&.Mui-focused fieldset": {
+      transition: "all 0.3s ease-in-out",
+      borderColor: darkGreen,
+    },
+  },
+});
+
+interface ApiProps {
+  text: string;
+  model_id: string;
+  Accent: string;
+  stability: number;
+  similarity_boost: number;
+}
+
+interface vercelMessage {
+  id: string;
+  role: "function" | "user" | "assistant" | "system";
+  content: string;
+}
+const Messages: vercelMessage[] = [];
+
+
+export default page

@@ -24,6 +24,7 @@ import { Settings } from "@/components/Settings"
 import { LoadingScreen } from "@/components/Loading"
 import anime from "animejs"
 import { Navbar } from "@/components/Navbar"
+import { kv } from '@vercel/kv'
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat()
