@@ -172,12 +172,13 @@ export const Body = () => {
           // setLatestMessageContent((prevMessages) => [...prevMessages, message.content]);
           console.log("latest message content", message.content);
           console.log("latest message", latestMessageContent);
+          
+      setstreamComplete(true);
         }
       }
 
       await setAudioText();
 
-      setstreamComplete(true);
     },
     
     // onResponse: async (message: any) => {
@@ -346,15 +347,7 @@ export const Body = () => {
                           <div className="w-full leading-relaxed text-sm font-semibold max-w-fit overflow-auto">
                             <p className="ml-8">
                               {m.content}
-                              {/* {m ? (<>
-                        </>) : (  
-                          <>
-                      <Alert severity="error">
-                      <AlertTitle>Error</AlertTitle>
-                      Open Api key not Set 
-                        </Alert>
-                        </>
-                        )} */}
+    
                             </p>
                           </div>
                         </Stack>
@@ -389,7 +382,7 @@ export const Body = () => {
                               {m.content}
                             </div>
                             <div className="mt-4">
-                              {m.content && streamComplete && (
+                              {streamComplete && m.content == latestMessageContent && (
                                 <>
                                   <AudioPlayer
                                     text={latestMessageContent}
