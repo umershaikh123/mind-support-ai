@@ -107,7 +107,11 @@ const colorSchemes = [
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
+    primary: {
+      main: colorSchemes[0].primary,
+    },
   },
+
 })
 
 const lightTheme = createTheme({
