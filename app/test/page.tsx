@@ -108,7 +108,7 @@ export default function Chat(pageProps: PageProps) {
     Accent,
   } = useApiContext();
   const [streamComplete, setstreamComplete] = React.useState(false);
-  const [latestMessageContent, setLatestMessageContent] = useState("To begin, type start");
+  const [latestMessageContent, setLatestMessageContent] = useState("");
   const {
     messages,
     input,
@@ -131,6 +131,7 @@ export default function Chat(pageProps: PageProps) {
         content: "To begin, type start",
       },
     ],
+    initialInput: "Start",
     onFinish: async (message: any) => {
       async function setAudioText() {
         console.log("messages", message);
@@ -148,6 +149,7 @@ export default function Chat(pageProps: PageProps) {
 
     },
   });
+  console.log("messages", messages);
 
   const ref = useRef<HTMLDivElement | null>(null);
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
@@ -215,24 +217,6 @@ export default function Chat(pageProps: PageProps) {
     stability: stability,
     similarity_boost: similarity_boost,
   };
-
-  // I need to call handleSubmit to begin the test
-
-  useEffect(() => {
-    let event: FormEvent<HTMLFormElement>
-     = new Event("submit") as unknown as FormEvent<HTMLFormElement>;
-    let initMsg: Message = {
-      id: 'begin',
-      content: "To begin, type start",
-      role: "system",
-    };
-     let chatOpts: UseChatOptions = {
-      api: 'api/personatest',
-      id: "promptValue",
-      initialMessages: [initMsg],
-      }
-      handleSubmit(event, );
-  }, []);
 
 
 
