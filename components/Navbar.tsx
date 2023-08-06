@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import React from "react"
-import Link from "next/link"
+import React, { Dispatch, SetStateAction } from "react";
+import Link from "next/link";
 import {
   AppBar,
   Box,
@@ -14,55 +14,59 @@ import {
   Button,
   makeStyles,
   Tooltip,
-} from "@mui/material"
-import MenuIcon from "@mui/icons-material/Menu"
-import MenuItem from "@mui/material/MenuItem"
-import AdbIcon from "@mui/icons-material/Adb"
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import AdbIcon from "@mui/icons-material/Adb";
+import { useTheme } from 'next-themes'
+import { Theme, ThemeProvider } from "@mui/material";
 
-import { Theme, ThemeProvider } from "@mui/material"
-import { theme } from "@/theme/theme"
+import { NavbarLinks } from "@/constants/types";
+import { NavList } from "@/constants";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { WbSunny, WbTwilight } from "@mui/icons-material";
 
-import { NavbarLinks } from "@/constants/types"
-import { NavList } from "@/constants"
-import AccountCircleIcon from "@mui/icons-material/AccountCircle"
-export const Navbar = () => {
+export const Navbar = (
+  toggleTheme: React.MouseEventHandler<HTMLButtonElement>
+) => {
   const settings = [
     {
       name: "user",
       url: "/",
     },
-  ]
+  ];
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null
+  );
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
-  )
+  );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget)
-  }
+    setAnchorElNav(event.currentTarget);
+  };
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget)
-  }
+    setAnchorElUser(event.currentTarget);
+  };
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null)
-  }
+    setAnchorElNav(null);
+  };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null)
-  }
+    setAnchorElUser(null);
+  };
+
+  const {theme, setTheme} = useTheme();
 
   return (
     <>
-      <ThemeProvider theme={theme}>
         <AppBar
+          className="mt-2 rounded-lg shadow-lg"
           position="static"
-          sx={{
-            background: theme.palette.secondary.main,
-            color: theme.palette.primary.main,
-          }}
+          color="transparent"
         >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
@@ -94,7 +98,7 @@ export const Navbar = () => {
                 MindSupportAi
               </Typography>
 
-            {/* Moble Nav */}
+              {/* Moble Nav */}
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
@@ -122,20 +126,20 @@ export const Navbar = () => {
                   onClose={handleCloseNavMenu}
                   MenuListProps={{
                     sx: {
-                      backgroundColor: theme.palette.background.default,
+                      // backgroundColor: theme.palette.background.default,
                     },
                   }}
                   sx={{
                     display: { xs: "block", md: "none" },
                   }}
                 >
-                  {NavList.map(page => (
+                  {NavList.map((page) => (
                     <MenuItem
                       key={page.pageName}
                       onClick={handleCloseNavMenu}
                       sx={{
-                        background: theme.palette.secondary.main,
-                        color: theme.palette.primary.main,
+                        // background: theme.palette.secondary.main,
+                        // color: theme.palette.primary.main,
                       }}
                     >
                       <Link href={page.link}>
@@ -152,6 +156,16 @@ export const Navbar = () => {
                 </Menu>
               </Box>
 
+              <Button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                // size="sm"
+              >
+                <WbSunny  className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <WbTwilight  className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <span className="sr-only">Toggle theme</span>
+              </Button>
+              
+
               <Avatar
                 alt="profile"
                 src="/Images/Brain.svg"
@@ -163,7 +177,7 @@ export const Navbar = () => {
                   mr: 1,
                 }}
               />
-              
+
               <Typography
                 variant="h5"
                 noWrap
@@ -182,13 +196,13 @@ export const Navbar = () => {
                 MindSupportAi
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                {NavList.map(page => (
+                {/* {NavList.map(page => (
                   <>
                     <Link href={page.link}>
                       <Button
                         key={page.pageName}
-                        variant="outlined"
-                        color="primary"
+                        variant="contained"
+                        color="secondary"
                         onClick={handleCloseNavMenu}
                         sx={{
                           my: 2,
@@ -203,7 +217,7 @@ export const Navbar = () => {
                       </Button>
                     </Link>
                   </>
-                ))}
+                ))} */}
               </Box>
 
               <Box
@@ -225,7 +239,7 @@ export const Navbar = () => {
                       sx={{
                         width: "50px",
                         height: "50px",
-                        color: theme.palette.primary.main,
+                        color: (theme) => theme.palette.primary.main,
                       }}
                     />
                   </IconButton>
@@ -233,14 +247,14 @@ export const Navbar = () => {
                 {/* <Menu
                   MenuListProps={{
                     sx: {
-                      backgroundColor: theme.palette.background.default,
+                      // backgroundColor: theme.palette.background.default,
                     },
                   }}
                   sx={{
                     mt: "45px",
 
                     "& .MuiMenuItem-root": {
-                      backgroundColor: theme.palette.secondary.main, // Specify the desired background color
+                      // backgroundColor: theme.palette.secondary.main, // Specify the desired background color
                     },
                     "& .MuiTypography-root": {
                       color: theme.palette.primary.main, // Specify the desired text color
@@ -266,7 +280,7 @@ export const Navbar = () => {
                       onClick={handleCloseUserMenu}
                       sx={{
                         "& .MuiMenuItem-root": {
-                          backgroundColor: theme.palette.secondary.main, // Specify the desired background color
+                          // backgroundColor: theme.palette.secondary.main, // Specify the desired background color
                         },
                         "& .MuiTypography-root": {
                           color: theme.palette.primary.main, // Specify the desired text color
@@ -283,7 +297,6 @@ export const Navbar = () => {
             </Toolbar>
           </Container>
         </AppBar>
-      </ThemeProvider>
     </>
-  )
-}
+  );
+};

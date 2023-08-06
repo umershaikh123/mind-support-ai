@@ -315,11 +315,11 @@ export const Body = () => {
                           }}
                         >
                           <div className=" ">
-                            <AccountCircleIcon sx={{ width: 40, height: 40 }} />
+                            <AccountCircleIcon sx={{ width: 40, height: 40, color: theme.palette.secondary.main }} />
                           </div>
 
-                          <div className="w-full leading-relaxed text-sm font-semibold max-w-fit overflow-auto">
-                            <p className="ml-8">
+                          <div className="w-full leading-relaxed text-sm max-w-fit overflow-auto text-white whitespace-normal">
+                            <p className="ml-8" style={{color: theme.palette.secondary.main}}>
                               {m.content}
     
                             </p>
@@ -367,8 +367,6 @@ export const Body = () => {
                                   />
                                 </div>
                               )}
- 
- 
                             </div>
                           </div>
                         </Stack>
