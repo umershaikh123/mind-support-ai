@@ -259,7 +259,7 @@ export const Body = () => {
     similarity_boost: similarity_boost,
   };
 
-  console.log("latestMessage hook", latestMessageContent);
+  
 
   return (
     <div>
