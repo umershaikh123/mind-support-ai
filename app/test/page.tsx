@@ -413,254 +413,254 @@ export function ContinuousSlider() {
 }
 
 
-function oldpage({}: Props) {
-  const [streamComplete, setstreamComplete] = React.useState(false);
-  const [latestMessageContent, setLatestMessageContent] = useState("");
-  const ref = useRef<HTMLDivElement | null>(null);
-  const chatContainerRef = useRef<HTMLDivElement | null>(null);
-  const {
-    model_id,
-    stability,
-    similarity_boost,
-    Accent,
-  } = useApiContext();
-  const {
-    messages,
-    input,
-    handleInputChange,
-    handleSubmit,
-  } = useChat({
-    onFinish: async (message: any) => {
-      async function setAudioText() {
-        console.log("messages", message);
-        if (message.role === "assistant") {
-          setLatestMessageContent(message.content);
-        }
-      }
+// function oldpage({}: Props) {
+//   const [streamComplete, setstreamComplete] = React.useState(false);
+//   const [latestMessageContent, setLatestMessageContent] = useState("");
+//   const ref = useRef<HTMLDivElement | null>(null);
+//   const chatContainerRef = useRef<HTMLDivElement | null>(null);
+//   const {
+//     model_id,
+//     stability,
+//     similarity_boost,
+//     Accent,
+//   } = useApiContext();
+//   const {
+//     messages,
+//     input,
+//     handleInputChange,
+//     handleSubmit,
+//   } = useChat({
+//     onFinish: async (message: any) => {
+//       async function setAudioText() {
+//         console.log("messages", message);
+//         if (message.role === "assistant") {
+//           setLatestMessageContent(message.content);
+//         }
+//       }
 
-      await setAudioText();
-      setstreamComplete(true);
-    },
-    api: 'personality',
-  });
+//       await setAudioText();
+//       setstreamComplete(true);
+//     },
+//     api: 'personality',
+//   });
 
-  const c_handleSubmit = async (event: any) => {
-    event.preventDefault();
-    try {
-      setstreamComplete(false);
-      await handleSubmit(event);
-    } catch (e) {
-      if (e) {
-        return (
-          <Alert severity="error">
-            <AlertTitle>Error</AlertTitle>
-            Open Api key not Set
-          </Alert>
-        );
-      }
-    }
-  };
+//   const c_handleSubmit = async (event: any) => {
+//     event.preventDefault();
+//     try {
+//       setstreamComplete(false);
+//       await handleSubmit(event);
+//     } catch (e) {
+//       if (e) {
+//         return (
+//           <Alert severity="error">
+//             <AlertTitle>Error</AlertTitle>
+//             Open Api key not Set
+//           </Alert>
+//         );
+//       }
+//     }
+//   };
 
-  const handleKeyDown = async (event: any) => {
-    if (event.key === "Enter") {
-      c_handleSubmit(event);
-    }
-  };
+//   const handleKeyDown = async (event: any) => {
+//     if (event.key === "Enter") {
+//       c_handleSubmit(event);
+//     }
+//   };
 
 
-  useEffect(() => {
-    const Reveal = ref.current;
+//   useEffect(() => {
+//     const Reveal = ref.current;
 
-    if (Reveal) {
-      anime({
-        targets: Reveal,
-        opacity: [0, 1],
-        duration: 1200,
-        easing: "easeOutSine",
-      });
-    }
-  }, []);
+//     if (Reveal) {
+//       anime({
+//         targets: Reveal,
+//         opacity: [0, 1],
+//         duration: 1200,
+//         easing: "easeOutSine",
+//       });
+//     }
+//   }, []);
 
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
-    }
-  }, [messages]);
+//   useEffect(() => {
+//     if (chatContainerRef.current) {
+//       chatContainerRef.current.scrollTop =
+//         chatContainerRef.current.scrollHeight;
+//     }
+//   }, [messages]);
 
-  const props: ApiProps = {
-    text: "promptValue",
-    model_id: model_id,
-    Accent: Accent,
-    stability: stability,
-    similarity_boost: similarity_boost,
-  };
-  return (
-    <div>
-      <Box sx={{ px: 2, py: 2 }}>
-        <Stack
-          direction="column"
-          alignItems="start"
-          justifyContent="space-between"
-          spacing={0}
-          sx={{
-            py: 2,
-            maxHeight: "70vh",
-            minHeight: "70vh",
-            height: "100%",
-            color: theme.palette.primary.main,
-            overflow: "auto",
-          }}
-        >
-          {/* conversation */}
-          <Stack
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="start"
-            spacing={3}
-            sx={{
-              overflow: "auto",
+//   const props: ApiProps = {
+//     text: "promptValue",
+//     model_id: model_id,
+//     Accent: Accent,
+//     stability: stability,
+//     similarity_boost: similarity_boost,
+//   };
+//   return (
+//     <div>
+//       <Box sx={{ px: 2, py: 2 }}>
+//         <Stack
+//           direction="column"
+//           alignItems="start"
+//           justifyContent="space-between"
+//           spacing={0}
+//           sx={{
+//             py: 2,
+//             maxHeight: "70vh",
+//             minHeight: "70vh",
+//             height: "100%",
+//             color: theme.palette.primary.main,
+//             overflow: "auto",
+//           }}
+//         >
+//           {/* conversation */}
+//           <Stack
+//             direction="column"
+//             justifyContent="flex-start"
+//             alignItems="start"
+//             spacing={3}
+//             sx={{
+//               overflow: "auto",
 
-              width: "100%",
-              maxWidth: "100%",
-            }}
-          >
-            {messages ? (
-              <>
-                {messages.map((m, index) => (
-                  <div
-                    key={index}
-                    className=" justify-start bg-[#1A0B11]  w-full "
-                    ref={ref}
-                  >
-                    {m.role === "user" ? (
-                      <div className="  ">
-                        <Stack
-                          direction="row"
-                          alignItems="center"
-                          justifyContent="flex-start"
-                          spacing={2}
-                          sx={{
-                            py: 1.5,
-                            backgroundColor: theme.palette.chatBackground.main,
-                            px: 2,
-                          }}
-                        >
-                          <div className=" ">
-                            <AccountCircleIcon sx={{ width: 40, height: 40 }} />
-                          </div>
+//               width: "100%",
+//               maxWidth: "100%",
+//             }}
+//           >
+//             {messages ? (
+//               <>
+//                 {messages.map((m, index) => (
+//                   <div
+//                     key={index}
+//                     className=" justify-start bg-[#1A0B11]  w-full "
+//                     ref={ref}
+//                   >
+//                     {m.role === "user" ? (
+//                       <div className="  ">
+//                         <Stack
+//                           direction="row"
+//                           alignItems="center"
+//                           justifyContent="flex-start"
+//                           spacing={2}
+//                           sx={{
+//                             py: 1.5,
+//                             backgroundColor: theme.palette.chatBackground.main,
+//                             px: 2,
+//                           }}
+//                         >
+//                           <div className=" ">
+//                             <AccountCircleIcon sx={{ width: 40, height: 40 }} />
+//                           </div>
 
-                          <div className="w-full leading-relaxed text-sm font-semibold max-w-fit overflow-auto">
-                            <p className="ml-8">
-                              {m.content}
+//                           <div className="w-full leading-relaxed text-sm font-semibold max-w-fit overflow-auto">
+//                             <p className="ml-8">
+//                               {m.content}
                              
-                            </p>
-                          </div>
-                        </Stack>
-                      </div>
-                    ) : (
-                      <div className="  ">
-                        <Stack
-                          direction="row"
-                          alignItems="center"
-                          justifyContent="flex-start"
-                          spacing={2}
-                          sx={{
-                            px: 2,
-                            py: 1.5,
+//                             </p>
+//                           </div>
+//                         </Stack>
+//                       </div>
+//                     ) : (
+//                       <div className="  ">
+//                         <Stack
+//                           direction="row"
+//                           alignItems="center"
+//                           justifyContent="flex-start"
+//                           spacing={2}
+//                           sx={{
+//                             px: 2,
+//                             py: 1.5,
 
-                            backgroundColor: theme.palette.chatBackground.main,
-                          }}
-                        >
-                          <div className=" ">
-                            <Avatar
-                              alt="Remy Sharp"
-                              src={"/Images/Bot2.svg"}
-                              sx={{ width: 40, height: 40 }}
-                            />
-                          </div>
+//                             backgroundColor: theme.palette.chatBackground.main,
+//                           }}
+//                         >
+//                           <div className=" ">
+//                             <Avatar
+//                               alt="Remy Sharp"
+//                               src={"/Images/Bot2.svg"}
+//                               sx={{ width: 40, height: 40 }}
+//                             />
+//                           </div>
 
-                          <div className=" w-full   leading-relaxed text-sm  font-medium">
-                            <div
-                              className=" ml-8  text-white whitespace-normal"
-                              ref={chatContainerRef}
-                            >
-                              {m.content}
-                            </div>
-                            <div className="mt-4">
-                              {m.content && streamComplete && (
-                                <>
-                                  <AudioPlayer
-                                    text={latestMessageContent}
-                                    model_id={props.model_id}
-                                    Accent={props.Accent}
-                                    stability={props.stability}
-                                    similarity_boost={props.similarity_boost}
-                                  />
-                                </>
-                              )}
+//                           <div className=" w-full   leading-relaxed text-sm  font-medium">
+//                             <div
+//                               className=" ml-8  text-white whitespace-normal"
+//                               ref={chatContainerRef}
+//                             >
+//                               {m.content}
+//                             </div>
+//                             <div className="mt-4">
+//                               {m.content && streamComplete && (
+//                                 <>
+//                                   <AudioPlayer
+//                                     text={latestMessageContent}
+//                                     model_id={props.model_id}
+//                                     Accent={props.Accent}
+//                                     stability={props.stability}
+//                                     similarity_boost={props.similarity_boost}
+//                                   />
+//                                 </>
+//                               )}
 
                           
-                            </div>
-                          </div>
-                        </Stack>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </>
-            ) : (
-              <>Loading Messages...</>
-            )}
-          </Stack>
+//                             </div>
+//                           </div>
+//                         </Stack>
+//                       </div>
+//                     )}
+//                   </div>
+//                 ))}
+//               </>
+//             ) : (
+//               <>Loading Messages...</>
+//             )}
+//           </Stack>
 
-          <Stack
-            direction="column"
-            justifyContent="flex-end"
-            alignItems="center"
-            spacing={2}
-            sx={{
-              mt: 4,
+//           <Stack
+//             direction="column"
+//             justifyContent="flex-end"
+//             alignItems="center"
+//             spacing={2}
+//             sx={{
+//               mt: 4,
 
-              width: "100%",
-              maxWidth: "100%",
-            }}
-          >
-            <form onSubmit={c_handleSubmit} className="w-full">
-              <CssTextField
-                label="Say something..."
-                maxRows={10}
-                fullWidth
-                id="fullWidth"
-                multiline
-                value={input}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment
-                      position="end"
-                      sx={{ color: theme.palette.primary.main }}
-                    >
-                      <Button type="submit" onClick={c_handleSubmit}>
-                        <SendIcon />
-                      </Button>
-                    </InputAdornment>
-                  ),
-                }}
-              />
+//               width: "100%",
+//               maxWidth: "100%",
+//             }}
+//           >
+//             <form onSubmit={c_handleSubmit} className="w-full">
+//               <CssTextField
+//                 label="Say something..."
+//                 maxRows={10}
+//                 fullWidth
+//                 id="fullWidth"
+//                 multiline
+//                 value={input}
+//                 onChange={handleInputChange}
+//                 onKeyDown={handleKeyDown}
+//                 InputProps={{
+//                   endAdornment: (
+//                     <InputAdornment
+//                       position="end"
+//                       sx={{ color: theme.palette.primary.main }}
+//                     >
+//                       <Button type="submit" onClick={c_handleSubmit}>
+//                         <SendIcon />
+//                       </Button>
+//                     </InputAdornment>
+//                   ),
+//                 }}
+//               />
 
-              <Typography variant="subtitle2" sx={{ mt: 1 }}>
-                Character Length : {input.length}
-              </Typography>
-            </form>
-          </Stack>
-        </Stack>
-      </Box>
-    </div>
-  )
+//               <Typography variant="subtitle2" sx={{ mt: 1 }}>
+//                 Character Length : {input.length}
+//               </Typography>
+//             </form>
+//           </Stack>
+//         </Stack>
+//       </Box>
+//     </div>
+//   )
   
-}
+// }
 
 
 
