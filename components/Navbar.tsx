@@ -174,7 +174,7 @@ export const Navbar = () => {
                   display: { xs: "flex", md: "none" },
                   flexGrow: 1,
 
-                  fontWeight: 800,
+                  fontWeight: 700,
                   color: "inherit",
                   textDecoration: "none",
                 }}

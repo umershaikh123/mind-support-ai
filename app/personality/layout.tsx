@@ -40,7 +40,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }, [])
 
   return (
-    <>
+    <div ref={Ref}>
         <div className="flex w-full justify-start items-center">
           <div className="mt-4 text-xl ">
  
@@ -48,8 +48,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
            
             </div>
             </div>
-      <div ref={Ref}>{children}</div>
-    </>
+      <div >{children}</div>
+    </div>
   )
 }
 
