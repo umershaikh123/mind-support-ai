@@ -323,7 +323,7 @@ function page() {
                     placeholder={
                       loading
                         ? 'Waiting for response...'
-                        : 'What is this legal case about?'
+                        : 'type your questions here...'
                     }
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
