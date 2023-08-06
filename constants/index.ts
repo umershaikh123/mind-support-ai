@@ -1,19 +1,13 @@
 const NavList = [
-    {
-        pageName: "Therapy",
-        link : "/"
-    },
+  {
+    pageName: "Therapy",
+    link: "/",
+  },
 
-    {
-        pageName: "Personality",
-        link : "/personality"
-    },
- 
- 
+  {
+    pageName: "Personality",
+    link: "/test",
+  },
+];
 
-
-    ]
-
-
-
-export {NavList}    
+export { NavList };
