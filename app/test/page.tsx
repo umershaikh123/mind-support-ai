@@ -108,7 +108,7 @@ export default function Chat(pageProps: PageProps) {
     Accent,
   } = useApiContext();
   const [streamComplete, setstreamComplete] = React.useState(false);
-  const [latestMessageContent, setLatestMessageContent] = useState("");
+  const [latestMessageContent, setLatestMessageContent] = useState("To begin, type start");
   const {
     messages,
     input,
@@ -149,7 +149,6 @@ export default function Chat(pageProps: PageProps) {
 
     },
   });
-  console.log("messages", messages);
 
   const ref = useRef<HTMLDivElement | null>(null);
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
@@ -217,6 +216,9 @@ export default function Chat(pageProps: PageProps) {
     stability: stability,
     similarity_boost: similarity_boost,
   };
+
+  // I need to call handleSubmit to begin the test
+
 
 
 
