@@ -3,7 +3,8 @@
  
 MindSupportAI is an AI-powered therapy chatbot designed to provide mental health support and guidance to users. It aims to create a safe and empathetic space for individuals to express their feelings and receive helpful coping strategies. Please note that this chatbot is not a replacement for professional therapy, but rather a supplementary tool for mental health awareness and self-help.
 
- ![image](https://github.com/umershaikh123/mind-support-ai/assets/42178214/a3207591-46a0-44d9-807c-bada26f9d983)
+![image](https://github.com/umershaikh123/mind-support-ai/assets/42178214/15108e5d-ad8b-489f-bf00-67d3815998ee)
+
 
 
 ## Features
