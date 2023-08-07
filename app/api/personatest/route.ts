@@ -36,7 +36,10 @@ const openai = new OpenAIApi(config);
 
 export const runtime = "edge";
 
-let session: { lastQuestionIndex: number, secondIndex: number } = { lastQuestionIndex: -1, secondIndex: -1 };
+let session: { lastQuestionIndex: number; secondIndex: number } = {
+  lastQuestionIndex: -1,
+  secondIndex: -1,
+};
 
 export async function POST(req: Request) {
   /**
@@ -106,8 +109,8 @@ export async function POST(req: Request) {
   function getNextQuestion(lastIndex: number): Question | null {
     const totalQuestions =
       personalityTraitQuestions.length + mentalHealthDimensionQuestions.length;
-    
-      const currentType =
+
+    const currentType =
       lastIndex < personalityTraitQuestions.length
         ? "personality"
         : "mentalHealth";
@@ -117,7 +120,7 @@ export async function POST(req: Request) {
         : mentalHealthDimensionQuestions;
     const nextIndex = lastIndex + 1;
 
-    if (nextIndex >= totalQuestions*2) {
+    if (nextIndex >= totalQuestions * 2) {
       return null; // No more questions
     }
 
@@ -141,32 +144,36 @@ export async function POST(req: Request) {
   // Process each patient input and store the answers based on the question type
   let lastQuestionIndex = session.lastQuestionIndex;
   let secondIndex = session.secondIndex;
+  let indexSelector =
+    lastQuestionIndex >= personalityTraitQuestions.length
+      ? secondIndex
+      : lastQuestionIndex;
+
   for (let i = 0; i < patientInputs.length; i++) {
     const input = patientInputs[i];
-    if (lastQuestionIndex >= 0) {
-      const currentType =
-        lastQuestionIndex < personalityTraitQuestions.length
-          ? "personality"
-          : "mentalHealth";
+    const currentType =
+      lastQuestionIndex < personalityTraitQuestions.length
+        ? "personality"
+        : "mentalHealth";
+    const currentAnswers =
+      currentType === "personality"
+        ? personalityTraits
+        : mentalHealthDimensions;
 
-      const qSet = currentType === "personality" ? personalityTraitQuestions : mentalHealthDimensionQuestions;
-      const currentAnswers =
-        currentType === "personality"
-          ? personalityTraits
-          : mentalHealthDimensions;
-      currentAnswers[qSet[lastQuestionIndex >= personalityTraitQuestions.length ? secondIndex: lastQuestionIndex]] =
+    if (currentType === "personality") {
+      currentAnswers[personalityTraitQuestions[lastQuestionIndex]] =
+        Number(input);
+    } else {
+      currentAnswers[mentalHealthDimensionQuestions[secondIndex]] =
         Number(input);
     }
-    if(lastQuestionIndex >= personalityTraitQuestions.length) {
-      session.secondIndex++;
-    }
-    lastQuestionIndex++;
   }
+  
 
   // Get the next question to ask
-  const nextQuestion = getNextQuestion(session.lastQuestionIndex);
+  const nextQuestion = getNextQuestion(indexSelector);
 
-
+  console.log("Session", session);
 
   if (nextQuestion) {
     console.log("nextQuestion", nextQuestion);
@@ -177,19 +184,23 @@ export async function POST(req: Request) {
       },
     });
 
-    if(nextQuestion.type === "personality") {
+    if (nextQuestion.type === "personality") {
       const prompt = `Personality trait: ${nextQuestion.question}\n\n1. Strongly disagree\n2. Disagree\n3. Neutral\n4. Agree\n5. Strongly agree\n\n`;
-      personalityTraits[nextQuestion.question] = Number(patientInputs[patientInputs.length - 1]);
+      personalityTraits[nextQuestion.question] = Number(
+        patientInputs[patientInputs.length - 1]
+      );
       console.log("personalityTraits", personalityTraits);
     } else {
       const prompt = `Mental health dimension: ${nextQuestion.question}\n\n1. Strongly disagree\n2. Disagree\n3. Neutral\n4. Agree\n5. Strongly agree\n\n`;
-      mentalHealthDimensions[nextQuestion.question] = Number(patientInputs[patientInputs.length - 1]);
+      mentalHealthDimensions[nextQuestion.question] = Number(
+        patientInputs[patientInputs.length - 1]
+      );
       console.log("mentalHealthDimensions", mentalHealthDimensions);
     }
 
-
-    // Store the last question index in the session
-    session.lastQuestionIndex++;
+    // Update the session with the next question index
+    session.lastQuestionIndex = nextQuestion.type === "personality" ? lastQuestionIndex + 1 : lastQuestionIndex;
+    session.secondIndex = nextQuestion.type === "mentalHealth" ? secondIndex + 1 : secondIndex;
 
     return new StreamingTextResponse(readableStreamQuestion);
   } else {
