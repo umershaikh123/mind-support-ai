@@ -1,6 +1,7 @@
 # MindSupportAI - Intelligent and Compassionate UI Therapist
 
 ![image](https://github.com/umershaikh123/mind-support-ai/assets/42178214/15108e5d-ad8b-489f-bf00-67d3815998ee)
+ 
 
 ## Introduction
 
@@ -36,3 +37,5 @@ To develop MindSupportAI, we combined our expertise in AI, natural language proc
 ## Accomplishments we're proud of
 
 Creating an AI-powered platform that genuinely cares for users' well-being is a significant accomplishment. MindSupportAI's ability to offer compassionate and personalized support, coupled with the successful integration of chained prompt injection and personality disorder assessment, has elevated the platform's effectiveness in fostering self-awareness and well-being.
+
+HackathonPage: https://devpost.com/software/mindsupportai
