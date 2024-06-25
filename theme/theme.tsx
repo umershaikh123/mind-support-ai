@@ -2,64 +2,7 @@ import { createTheme, SimplePaletteColorOptions } from "@mui/material/styles"
 import { PaletteColorOptions } from "@mui/material/styles/createPalette"
 
 
-// :root {
-
-//   --primary : #4AA8FF;
-//   --Secondary :#7aa895;
-//   --background : #49a8ff;
-//   --chat-background : #7aa895;
-//   --border:#034c81;
-//   --scrollbar-track-color: #f2f2f2;
-//   --scrollbar-thumb-color: #888888;
-// }
-
-
-// body {
-//   color: var(--primary);
-//   background-color: var(--background);
-// }
-
  
-
-// /* Apply custom scrollbar styles */
-// ::-webkit-scrollbar {
-//   width: 5px;
-//   height: 4px;
-// }
-
-// /* Track */
-// ::-webkit-scrollbar-track {
-//   background-color: var(--chat-background);
-// }
-
-// /* Thumb */
-// ::-webkit-scrollbar-thumb {
-//   background-color: var(--primary);
-// }
-
-// /* Handle hover */
-// ::-webkit-scrollbar-thumb:hover {
-//   background-color: rgb(63, 125, 152);
-// }
-
-
-// input::-webkit-input-placeholder {
-//   color: inherit;
-//   opacity: 1;
-// }
-
-// /* Remove webkit input speech button styles */
-// input::-webkit-input-speech-button {
-//   display: none;
-// }
-
-// /* Remove webkit search input styles */
-// input::-webkit-search-decoration,
-// input::-webkit-search-cancel-button,
-// input::-webkit-search-results-button,
-// input::-webkit-search-results-decoration {
-//   display: none;
-// }
 
 // Define a type alias for PaletteColorOptions
 type CustomPaletteColorOptions = SimplePaletteColorOptions & {
