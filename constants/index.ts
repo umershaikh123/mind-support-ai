@@ -4,10 +4,7 @@ const NavList = [
     link: "/",
   },
 
-  {
-    pageName: "Personality",
-    link: "/test",
-  },
+ 
 ];
 
 export { NavList };

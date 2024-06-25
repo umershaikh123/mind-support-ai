@@ -63,6 +63,7 @@ const CssTextField = styled(TextField)({
   "& .MuiInputBase-input": {
     color: theme.palette.primary.main,
     height: "3rem",
+    backgroundColor: theme.palette.secondary.main,
   },
 
   "& label.Mui-focused": {
@@ -181,23 +182,7 @@ export const Body = () => {
 
     },
     
-    // onResponse: async (message: any) => {
-    //   async function saveKV() {
-    //       try {
-    //           const value = await kv.get("messages");
-    //           if (value) {
-    //               const messages = JSON.parse(value);
-    //               messages.push(message);
-    //               await kv.set("messages", JSON.stringify(messages));
-    //           } else {
-    //             await kv.set("messages", JSON.stringify(message));
-    //       }
-    //   }catch(err) {
-    //       console.log(err);
-    //   }
-    //   }
-    //   await saveKV();
-    // },
+   
   });
 
   const ref = useRef<HTMLDivElement | null>(null);
@@ -218,9 +203,7 @@ export const Body = () => {
 
   const c_handleSubmit = async (event: any) => {
     event.preventDefault();
-    // if (promptValue.trim() === "") {
-    //   return // Don't submit empty messages
-    // }
+ 
     try {
       setstreamComplete(false);
       await handleSubmit(event);
@@ -319,7 +302,7 @@ export const Body = () => {
                           </div>
 
                           <div className="w-full leading-relaxed text-sm max-w-fit overflow-auto text-white whitespace-normal">
-                            <p className="ml-8" style={{color: theme.palette.secondary.main}}>
+                            <p className="ml-8" style={{color: theme.palette.secondary.main   }}>
                               {m.content}
     
                             </p>
@@ -403,6 +386,10 @@ export const Body = () => {
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
                 InputProps={{
+                  sx: {
+                    backgroundColor:theme.palette.secondary.main  ,  
+
+                  },
                   endAdornment: (
                     <InputAdornment
                       position="end"

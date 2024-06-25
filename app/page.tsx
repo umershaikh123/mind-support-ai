@@ -53,15 +53,7 @@ export default function Chat(pageProps: PageProps) {
     });
   }, [isLoading]);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsLoading(false)
-  //   }, 3400) // Adjust the duration as needed
-  // }, [])
-
-  // if (isLoading) {
-  //   return <LoadingScreen />
-  // }
+ 
 
   return (
     <div className="" ref={Ref}>
@@ -88,20 +80,7 @@ export default function Chat(pageProps: PageProps) {
           >
             <Settings />
           </Box>
-          <Box
-            className='rounded-lg shadow-lg'
-            sx={{
-              flexGrow: 0,
-              flexBasis: "15rem",
-              // flexShrink: 10,
-              // display : "flex",
-              display: { xs: "none", sm: "flex" },
-              height: "250px",
-              // background: theme.palette.secondary.main,
-            }}
-          >
-            <ModeSelect />
-          </Box>
+ 
           </div>
 
           
@@ -125,7 +104,7 @@ export default function Chat(pageProps: PageProps) {
             >
               <Body />
             </Typography>
-            {/* {children} */}
+        
           </Box>
         </Stack>
       </ThemeProvider>

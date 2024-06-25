@@ -39,7 +39,7 @@ const callElevenLabsTextToSpeechAPI = async (props: ApiProps) => {
   const headers = {
     accept: "audio/mpeg",
     "xi-api-key":
-      process.env.ELEVENLABS_API_KEY || "67f09ee6a4dbb1a534806df1203448c2",
+      process.env.ELEVENLABS_API_KEY || "e876fccfb7a4317bcc1c59ce38922789",
     "Content-Type": "application/json",
   }
   console.log("Api Key speech", process.env.ELEVENLABS_API_KEY)
@@ -72,65 +72,7 @@ const callElevenLabsTextToSpeechAPI = async (props: ApiProps) => {
     console.error("Error:", error) // Handle any errors
   }
 
-  //   try {
-  //     const response = await fetch(getModel, {
-  //       method: "GET",
-  //       headers: headers,
-  //     })
-
-  //     if (!response.ok) {
-  //       throw new Error("API request failed")
-  //     }
-
-  //     console.log("getModel response", response.json())
-  //   } catch (error) {
-  //     console.error("Error:", error) // Handle any errors
-  //   }
-
-  //   try {
-  //     const response = await fetch(getVoices, {
-  //       method: "GET",
-  //       headers: headers,
-  //     })
-
-  //     if (!response.ok) {
-  //       throw new Error("API request failed")
-  //     }
-
-  //     console.log("getVoices response", response.json())
-  //   } catch (error) {
-  //     console.error("Error:", error) // Handle any errors
-  //   }
-
-  //   try {
-  //     const response = await fetch(getVoiceSettings, {
-  //       method: "GET",
-  //       headers: headers,
-  //     })
-
-  //     if (!response.ok) {
-  //       throw new Error("API request failed")
-  //     }
-
-  //     console.log("getVoiceSettings response", response.json())
-  //   } catch (error) {
-  //     console.error("Error:", error) // Handle any errors
-  //   }
-
-  //   try {
-  //     const response = await fetch(getVoice, {
-  //       method: "GET",
-  //       headers: headers,
-  //     })
-
-  //     if (!response.ok) {
-  //       throw new Error("API request failed")
-  //     }
-
-  //     console.log("getVoice response", response.json())
-  //   } catch (error) {
-  //     console.error("Error:", error) // Handle any errors
-  //   }
+ 
 }
 
 export { callElevenLabsTextToSpeechAPI }

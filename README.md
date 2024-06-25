@@ -7,18 +7,7 @@
 
 Welcome to MindSupportAI, an innovative and empathetic AI-powered therapy chatbot. Our mission is to provide personalized mental health support and guidance, creating a safe space for users to express their feelings and receive compassionate assistance. MindSupportAI aims to bridge the gap in mental health care, making support and advice easily accessible to everyone.
 
-## Features
-
-- **Intelligent Symptom Analysis:** MindSupportAI actively listens to users' descriptions of their symptoms and employs custom prompt templates to gather more specific and relevant data, allowing for a comprehensive understanding of the user's emotional state.
-
-- **Personality Disorder Assessment:** The AI system can administer a personality disorder assessment, helping users gain insights into their personality traits and potential disorders.
-
-- **Empathetic Responses:** MindSupportAI utilizes ElevenLab TTS software to provide a comforting and personified therapist, offering empathetic and supportive responses that resonate with the user's emotions.
-
-- **24/7 Availability:** MindSupportAI is accessible round-the-clock, ensuring users can seek immediate support during emergencies or outside regular support hours.
-
-- **Continuous Improvement:** We are committed to continually improving MindSupportAI based on user feedback and advancements in mental health technology, ensuring the platform remains effective and up-to-date.
-
+ 
 ## How to Run Locally
 
 1. Set up your OpenAI API key.
@@ -34,8 +23,4 @@ MindSupportAI was inspired by our shared passion for leveraging AI to address cr
 
 To develop MindSupportAI, we combined our expertise in AI, natural language processing, and machine learning. Leveraging the powerful GPT-3.5 language model, we process user input and generate meaningful responses. Integration with ElevenLab TTS software ensures the AI therapist delivers comforting and empathetic interactions.
 
-## Accomplishments we're proud of
-
-Creating an AI-powered platform that genuinely cares for users' well-being is a significant accomplishment. MindSupportAI's ability to offer compassionate and personalized support, coupled with the successful integration of chained prompt injection and personality disorder assessment, has elevated the platform's effectiveness in fostering self-awareness and well-being.
-
-HackathonPage: https://devpost.com/software/mindsupportai
+ 

@@ -33,7 +33,7 @@ function ModeSelect({}: Props) {
     setAnchorElUser(null);
   };
 
-  let createdBy: string[] = ["@umershaikh123", "@Keyrxng"];
+  let createdBy: string[] = ["@umershaikh123"];
 
   return (
     <div className="text-center justify-center align-middle w-full mx-auto mb-3 pb-3">

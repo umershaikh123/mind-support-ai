@@ -196,28 +196,7 @@ export const Navbar = (
                 MindSupportAi
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                {/* {NavList.map(page => (
-                  <>
-                    <Link href={page.link}>
-                      <Button
-                        key={page.pageName}
-                        variant="contained"
-                        color="secondary"
-                        onClick={handleCloseNavMenu}
-                        sx={{
-                          my: 2,
-                          px: 3,
-                          ml: 3,
-                          textTransform: "capitalize",
-                          fontSize: "14px",
-                          display: "block",
-                        }}
-                      >
-                        {page.pageName}
-                      </Button>
-                    </Link>
-                  </>
-                ))} */}
+  
               </Box>
 
               <Box
@@ -229,12 +208,7 @@ export const Navbar = (
               >
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    {/* <Avatar
-                      alt="profile"
-                      src="/Images/Customer.svg"
-                      // src={user?.picture || '/Images/Customer.svg'}
-                      sx={{ width: "50px", height: "50px" }}
-                    /> */}
+           
                     <AccountCircleIcon
                       sx={{
                         width: "50px",
@@ -244,55 +218,7 @@ export const Navbar = (
                     />
                   </IconButton>
                 </Tooltip>
-                {/* <Menu
-                  MenuListProps={{
-                    sx: {
-                      // backgroundColor: theme.palette.background.default,
-                    },
-                  }}
-                  sx={{
-                    mt: "45px",
-
-                    "& .MuiMenuItem-root": {
-                      // backgroundColor: theme.palette.secondary.main, // Specify the desired background color
-                    },
-                    "& .MuiTypography-root": {
-                      color: theme.palette.primary.main, // Specify the desired text color
-                    },
-                  }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                > 
-                 {settings.map(setting => (
-                    <MenuItem
-                      key={setting.name}
-                      onClick={handleCloseUserMenu}
-                      sx={{
-                        "& .MuiMenuItem-root": {
-                          // backgroundColor: theme.palette.secondary.main, // Specify the desired background color
-                        },
-                        "& .MuiTypography-root": {
-                          color: theme.palette.primary.main, // Specify the desired text color
-                        },
-                      }}
-                    >
-                      <Button variant="text" color="primary" href={setting.url}>
-                        {setting.name}
-                      </Button>
-                    </MenuItem>
-                  ))}  
-                </Menu> */}
+    
               </Box>
             </Toolbar>
           </Container>
